@@ -1,10 +1,15 @@
 package services;
 
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 
 import models.google.GoogleRoute;
 
@@ -12,11 +17,19 @@ import models.google.GoogleRoute;
 public class GoogleDirectionsApiService {
 
     private String API_URL = "https://maps.googleapis.com/maps/api/directions/json?";
-    // De eerste die hier de api key plaatst en dat op git zet krijgt slaag van Eva
-    private String API_KEY = "<enter the key here>";
+    private String API_KEY = ConfigurationUtil.getInstance()
+        .get("config.google.directionsApi.key")
+        .orElseThrow(() -> new RuntimeException("Could not find 'config.google.directionsApi.key'"));
 
     private Client client;
     private WebTarget target;
+
+
+    @PostConstruct
+    private void test() {
+        Logger LOG = Logger.getLogger(getClass().getName());
+        LOG.info("API_KEY: " + API_KEY);
+    }
 
     public GoogleDirectionsApiService() {
         client = ClientBuilder.newClient();

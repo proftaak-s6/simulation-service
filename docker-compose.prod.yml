@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  simulation:
+    image: yoksar/simulation-service
+    environment:
+      GOOGLE_API_KEY: /run/secrets/google-api-key
+    secrets:
+      google-api-key:
+        external: true

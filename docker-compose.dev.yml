@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  simulation:
+    image: maven:alpine
+    command: java -jar /app/simulation-service-1.0.0.jar
+    volumes:
+      - ./target:/app/
+    ports:
+      - 8300:8080
+    env_file:
+      - ./secrets.env
