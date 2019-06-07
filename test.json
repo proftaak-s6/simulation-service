@@ -1,0 +1,32 @@
+{
+    "start": "Dongen",
+    "end": "Tilburg",
+    "time": "10:42:02",
+    "trackerId": 1,
+    "details": [
+        {
+            "afstand": {
+                "value": 1200,
+                "unit": "m"
+            },
+            "wegtype": "80",
+            "prijs": 1.20
+        },
+        {
+            "afstand": {
+                "value": 650,
+                "unit": "m"
+            },
+            "wegtype": "B",
+            "prijs": 2.00
+        },
+        {
+            "afstand": {
+                "value": 546,
+                "unit": "m"
+            },
+            "wegtype": "C",
+            "prijs": 0.29
+        }
+    ]
+}
