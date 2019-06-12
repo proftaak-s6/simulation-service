@@ -1,0 +1,33 @@
+{
+    "trackerId": 1,
+    "step": {
+        "distance": 205,
+        "road": {
+            "lat": 1,
+            "lng": 2,
+            "name": "Geer"
+        },
+        "locations": [
+            {
+                "date": "",
+                "lat": 1,
+                "lng": 2
+            },
+            {
+                "date": "",
+                "lat": 1,
+                "lng": 2
+            },
+            {
+                "date": "",
+                "lat": 1,
+                "lng": 2
+            },
+            {
+                "date": "",
+                "lat": 1,
+                "lng": 2
+            }
+        ]
+    }
+}

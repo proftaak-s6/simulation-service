@@ -8,9 +8,5 @@ services:
       - ./target:/app/
     ports:
       - 8300:8080
-    environment:
-      DATABASE_URL: jdbc:mysql://192.168.178.24:3300/projectdb
-      DATABASE_USER: mysql
-      DATABASE_PASS: mysql
     env_file:
       - ./secrets.env
