@@ -70,7 +70,8 @@ public class RouteSplitterService {
                     log("The update does not fit inside the step entirely. Distance left ["
                             + step.getDistance().getValue() + "] and distance to move [" + distanceToMove + "]");
                     log("Setting the distance of this step to 0, setting the remainder distance to the leftover ["
-                            + step.getDistance().getValue() + "]. Keep in mind that the remainder distance is not yet implemented.");
+                            + step.getDistance().getValue()
+                            + "]. Keep in mind that the remainder distance is not yet implemented.");
                     remainderDistance = step.getDistance().getValue();
                     step.getDistance().setValue(0);
                 }
@@ -90,35 +91,27 @@ public class RouteSplitterService {
     }
 
     private Location getLocationAfterInterval(Step step, int updateInterval) {
-        boolean logMe = false;
+        log("");
+        log("Finding the next location of our vehicle");
 
-        if (logMe) {
-            log("");
-            log("Finding the next location of our vehicle");
-        }
-
-        if (logMe)
-            log("Original Lat: {" + step.getStart_location().getLat() + "} and Lng: {"
-                    + step.getStart_location().getLng() + "}.");
+        log("Original Lat: {" + step.getStart_location().getLat() + "} and Lng: {" + step.getStart_location().getLng()
+                + "}.");
 
         double differenceInLat = step.getEnd_location().getLat() - step.getStart_location().getLat();
         double differenceInLng = step.getEnd_location().getLng() - step.getStart_location().getLng();
 
-        if (logMe)
-            log("Difference in Lat: {" + differenceInLat + "} and difference in Lng: {" + differenceInLng + "}.");
+        log("Difference in Lat: {" + differenceInLat + "} and difference in Lng: {" + differenceInLng + "}.");
 
         differenceInLat = differenceInLat / (double) step.getDuration().getValue() * (double) updateInterval;
         differenceInLng = differenceInLng / (double) step.getDuration().getValue() * (double) updateInterval;
 
-        if (logMe)
-            log("Difference from start Lat: {" + differenceInLat + "} and difference from start Lng: {"
-                    + differenceInLng + "}.");
+        log("Difference from start Lat: {" + differenceInLat + "} and difference from start Lng: {" + differenceInLng
+                + "}.");
 
         double newLat = step.getStart_location().getLat() + differenceInLat;
         double newLng = step.getStart_location().getLng() + differenceInLng;
 
-        if (logMe)
-            log("New Lat: {" + newLat + "} and Lng: {" + newLng + "}.");
+        log("New Lat: {" + newLat + "} and Lng: {" + newLng + "}.");
 
         return new Location(newLat, newLng);
     }
@@ -133,7 +126,11 @@ public class RouteSplitterService {
     private static int counter = 0;
 
     private static void log(String message) {
-        System.out.println("[" + counter++ + "] => " + message);
+        boolean log = false;
+
+        if (log) {
+            System.out.println("[" + counter++ + "] => " + message);
+        }
     }
 
 }
