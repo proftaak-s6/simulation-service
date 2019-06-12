@@ -3,25 +3,25 @@ package models.geocode;
 import java.util.List;
 
 public class GeocodedLocation {
-    private PlusCode plusCode;
-    private List<Result> results;
-    private String status;
+    public PlusCode plus_code;
+    public List<Result> results;
+    public String status;
 
     public GeocodedLocation() {
     }
 
-    public GeocodedLocation(PlusCode plusCode, List<Result> results, String status) {
-        this.plusCode = plusCode;
+    public GeocodedLocation(PlusCode plus_code, List<Result> results, String status) {
+        this.plus_code = plus_code;
         this.results = results;
         this.status = status;
     }
 
-    public PlusCode getPlusCode() {
-        return this.plusCode;
+    public PlusCode getPlus_code() {
+        return this.plus_code;
     }
 
-    public void setPlusCode(PlusCode plusCode) {
-        this.plusCode = plusCode;
+    public void setPlus_code(PlusCode plus_code) {
+        this.plus_code = plus_code;
     }
 
     public List<Result> getResults() {
@@ -42,7 +42,7 @@ public class GeocodedLocation {
 
     @Override
     public String toString() {
-        return "{" + " plusCode='" + getPlusCode() + "'" + ", results='" + getResults() + "'" + ", status='"
+        return "{" + " plus_code='" + getPlus_code() + "'" + ", results='" + getResults() + "'" + ", status='"
                 + getStatus() + "'" + "}";
     }
 

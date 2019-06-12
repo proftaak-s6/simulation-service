@@ -1,36 +1,36 @@
 package models.geocode;
 
 public class PlusCode {
-    public String compoundCode;
-    public String globalCode;
+    public String compound_code;
+    public String global_code;
 
     public PlusCode() {
     }
 
-    public PlusCode(String compoundCode, String globalCode) {
-        this.compoundCode = compoundCode;
-        this.globalCode = globalCode;
+    public PlusCode(String compound_code, String global_code) {
+        this.compound_code = compound_code;
+        this.global_code = global_code;
     }
 
-    public String getCompoundCode() {
-        return this.compoundCode;
+    public String getCompound_code() {
+        return this.compound_code;
     }
 
-    public void setCompoundCode(String compoundCode) {
-        this.compoundCode = compoundCode;
+    public void setCompound_code(String compound_code) {
+        this.compound_code = compound_code;
     }
 
-    public String getGlobalCode() {
-        return this.globalCode;
+    public String getGlobal_code() {
+        return this.global_code;
     }
 
-    public void setGlobalCode(String globalCode) {
-        this.globalCode = globalCode;
+    public void setGlobal_code(String global_code) {
+        this.global_code = global_code;
     }
 
     @Override
     public String toString() {
-        return "{" + " compoundCode='" + getCompoundCode() + "'" + ", globalCode='" + getGlobalCode() + "'" + "}";
+        return "{" + " compound_code='" + getCompound_code() + "'" + ", global_code='" + getGlobal_code() + "'" + "}";
     }
 
 }

@@ -1,6 +1,6 @@
 package endpoints;
 
-import models.RouteStartEndModel;
+import models.OriginDestination;
 import models.google.GoogleRoute;
 import models.google.Leg;
 import models.google.Route;
@@ -13,8 +13,7 @@ public class RouteSplitterMain {
         GoogleDirectionsApiService directionsService = new GoogleDirectionsApiService();
         RouteSplitterService routeSplitterService = new RouteSplitterService();
 
-        RouteStartEndModel input = new RouteStartEndModel("Enschotsestraat, Tilburg, The Netherlands",
-                "Lambert de Wijsstraat, Tilburg, The Netherlands");
+        OriginDestination input = new OriginDestination("Enschotsestraat, Tilburg, The Netherlands", "Lambert de Wijsstraat, Tilburg, The Netherlands");
         GoogleRoute result = directionsService.getDirections(input.getOrigin(), input.getDestination());
 
         System.out.println("Logging the GoogleRoute that will be used for splitting. Input data: " + input);

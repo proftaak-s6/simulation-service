@@ -4,26 +4,26 @@ import java.util.List;
 
 public class Result {
 
-    private List<AddressComponent> addressComponents;
+    public List<AddressComponent> address_components;
 
     public Result() {
     }
 
-    public Result(List<AddressComponent> addressComponents) {
-        this.addressComponents = addressComponents;
+    public Result(List<AddressComponent> address_components) {
+        this.address_components = address_components;
     }
 
-    public List<AddressComponent> getAddressComponents() {
-        return this.addressComponents;
+    public List<AddressComponent> getAddress_components() {
+        return this.address_components;
     }
 
-    public void setAddressComponents(List<AddressComponent> addressComponents) {
-        this.addressComponents = addressComponents;
+    public void setAddress_components(List<AddressComponent> address_components) {
+        this.address_components = address_components;
     }
 
     @Override
     public String toString() {
-        return "{" + " addressComponents='" + getAddressComponents() + "'" + "}";
+        return "{" + " address_components='" + getAddress_components() + "'" + "}";
     }
 
 }
