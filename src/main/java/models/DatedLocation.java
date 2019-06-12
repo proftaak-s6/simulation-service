@@ -2,15 +2,15 @@ package models;
 
 import java.util.Date;
 
-public class TrackerServiceModel {
+public class DatedLocation {
     private double lat;
     private double lng;
     private Date date;
 
-    public TrackerServiceModel() {
+    public DatedLocation() {
     }
 
-    public TrackerServiceModel(double lat, double lng, Date date) {
+    public DatedLocation(double lat, double lng, Date date) {
         this.lat = lat;
         this.lng = lng;
         this.date = date;

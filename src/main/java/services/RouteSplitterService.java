@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.enterprise.context.Dependent;
 
-import models.TrackerServiceModel;
+import models.DatedLocation;
 import models.google.Location;
 import models.google.Step;
 
@@ -16,10 +16,10 @@ public class RouteSplitterService {
     public RouteSplitterService() {
     }
 
-    public List<TrackerServiceModel> SplitStepsIntoLocations(List<Step> steps, int updateInterval) {
+    public List<DatedLocation> SplitStepsIntoLocations(List<Step> steps, int updateInterval) {
         log("START SPLITTING STEPS");
 
-        List<TrackerServiceModel> coordinates = new ArrayList<TrackerServiceModel>();
+        List<DatedLocation> datedLocations = new ArrayList<DatedLocation>();
         int amountOfSteps = steps.size();
 
         for (int index = 0; index < amountOfSteps; index++) {
@@ -51,9 +51,9 @@ public class RouteSplitterService {
 
                     // Get the new location and add it to our list
                     Location locationAfterInterval = getLocationAfterInterval(step, updateInterval);
-                    TrackerServiceModel trackerServiceModel = new TrackerServiceModel(locationAfterInterval.getLat(),
+                    DatedLocation trackerServiceModel = new DatedLocation(locationAfterInterval.getLat(),
                             locationAfterInterval.getLng(), getNextDateTick(updateInterval));
-                    coordinates.add(trackerServiceModel);
+                    datedLocations.add(trackerServiceModel);
 
                     // Prepare for the next step
                     // Set the start distance to where we are after the movement
@@ -82,12 +82,12 @@ public class RouteSplitterService {
             log("");
         }
 
-        log("Process complete. Returning [" + coordinates.size() + "] coordinates.");
-        for (TrackerServiceModel coordinate : coordinates) {
+        log("Process complete. Returning [" + datedLocations.size() + "] coordinates.");
+        for (DatedLocation coordinate : datedLocations) {
             log("Coordinate: " + coordinate.toString());
         }
 
-        return coordinates;
+        return datedLocations;
     }
 
     private Location getLocationAfterInterval(Step step, int updateInterval) {
@@ -126,7 +126,7 @@ public class RouteSplitterService {
     private static int counter = 0;
 
     private static void log(String message) {
-        boolean log = false;
+        boolean log = true;
 
         if (log) {
             System.out.println("[" + counter++ + "] => " + message);

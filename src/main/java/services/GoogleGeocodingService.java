@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 
-import models.google.GoogleGeocodedLocation;
+import models.geocode.GeocodedLocation;
 import models.google.Location;
 
 @Dependent
@@ -25,11 +25,11 @@ public class GoogleGeocodingService {
         client = ClientBuilder.newClient();
     }
 
-    public GoogleGeocodedLocation getLocation(Location location) {
+    public GeocodedLocation getLocation(Location location) {
         target = client.target(API_URL).queryParam("latlng", location.getLat() + "," + location.getLng())
                 .queryParam("key", API_KEY);
 
-        return target.request(MediaType.APPLICATION_JSON).get(GoogleGeocodedLocation.class);
+        return target.request(MediaType.APPLICATION_JSON).get(GeocodedLocation.class);
     }
 
     public String getLocationUrl(Location location) {

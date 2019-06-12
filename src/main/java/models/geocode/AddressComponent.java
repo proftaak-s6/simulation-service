@@ -1,14 +1,11 @@
+package models.geocode;
 
-package models.google;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddressComponent {
-
     private String longName;
     private String shortName;
-    private List<String> types = new ArrayList<>();
+    private List<String> types;
 
     public AddressComponent() {
     }
@@ -42,4 +39,11 @@ public class AddressComponent {
     public void setTypes(List<String> types) {
         this.types = types;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " longName='" + getLongName() + "'" + ", shortName='" + getShortName() + "'" + ", types='"
+                + getTypes() + "'" + "}";
+    }
+
 }

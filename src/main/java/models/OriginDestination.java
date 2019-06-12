@@ -1,13 +1,13 @@
 package models;
 
-public class RouteStartEndModel {
+public class OriginDestination {
     private String origin;
     private String destination;
 
-    public RouteStartEndModel() {
+    public OriginDestination() {
     }
 
-    public RouteStartEndModel(String origin, String destination) {
+    public OriginDestination(String origin, String destination) {
         this.origin = origin;
         this.destination = destination;
     }

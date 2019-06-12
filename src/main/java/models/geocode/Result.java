@@ -1,12 +1,10 @@
+package models.geocode;
 
-package models.google;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
 
-    private List<AddressComponent> addressComponents = new ArrayList<>();
+    private List<AddressComponent> addressComponents;
 
     public Result() {
     }
@@ -21,6 +19,11 @@ public class Result {
 
     public void setAddressComponents(List<AddressComponent> addressComponents) {
         this.addressComponents = addressComponents;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " addressComponents='" + getAddressComponents() + "'" + "}";
     }
 
 }
