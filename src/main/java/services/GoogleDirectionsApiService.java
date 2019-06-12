@@ -36,15 +36,19 @@ public class GoogleDirectionsApiService {
     }
 
     public GoogleRoute getDirections(String origin, String destination) {
-        target = client.target(API_URL).queryParam("origin", origin).queryParam("destination", destination)
-                .queryParam("key", API_KEY);
-
-        return target.request(MediaType.APPLICATION_JSON).get(GoogleRoute.class);
+        return client.target(API_URL)
+            .queryParam("origin", origin)
+            .queryParam("destination", destination)
+            .queryParam("key", API_KEY)
+            .request(MediaType.APPLICATION_JSON)
+            .get(GoogleRoute.class);
     }
 
     public String getDirectionsUrl(String origin, String destination) {
-        target = client.target(API_URL).queryParam("origin", origin).queryParam("destination", destination)
-                .queryParam("key", API_KEY);
+        target = client.target(API_URL)
+            .queryParam("origin", origin)
+            .queryParam("destination", destination)
+            .queryParam("key", API_KEY);
 
         return target.getUri().toString();
     }

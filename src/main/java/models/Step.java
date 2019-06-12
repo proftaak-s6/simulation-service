@@ -3,15 +3,15 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplitStep {
+public class Step {
     private int distance;
     private NamedLocation start;
     private List<DatedLocation> locations = new ArrayList<DatedLocation>();
 
-    public SplitStep() {
+    public Step() {
     }
 
-    public SplitStep(int distance, NamedLocation start, List<DatedLocation> locations) {
+    public Step(int distance, NamedLocation start, List<DatedLocation> locations) {
         this.distance = distance;
         this.start = start;
         this.locations = locations;
@@ -40,4 +40,11 @@ public class SplitStep {
     public void setLocations(List<DatedLocation> locations) {
         this.locations = locations;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " distance='" + getDistance() + "'" + ", start='" + getStart() + "'" + ", locations='"
+                + getLocations() + "'" + "}";
+    }
+
 }

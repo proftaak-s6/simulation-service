@@ -2,9 +2,9 @@ package models;
 
 import java.util.Date;
 
-public class DatedLocation {
-    private double lat;
-    private double lng;
+import models.google.Location;
+
+public class DatedLocation extends Location {
     private Date date;
 
     public DatedLocation() {

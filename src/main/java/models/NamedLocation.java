@@ -1,10 +1,10 @@
 package models;
 
-public class NamedLocation {
+import models.google.Location;
+
+public class NamedLocation extends Location {
 
     private String name;
-    private double lat;
-    private double lng;
 
     public NamedLocation() {
     }
@@ -37,6 +37,11 @@ public class NamedLocation {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " name='" + getName() + "'" + ", lat='" + getLat() + "'" + ", lng='" + getLng() + "'" + "}";
     }
 
 }

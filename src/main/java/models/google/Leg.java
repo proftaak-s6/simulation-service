@@ -9,13 +9,13 @@ public class Leg {
     private TextValue duration;
     private Location end_location;
     private Location start_location;
-    private List<Step> steps;
+    private List<GoogleStep> steps;
 
     public Leg() {
     }
 
     public Leg(TextValue distance, TextValue duration, Location end_location, Location start_location,
-            List<Step> steps) {
+            List<GoogleStep> steps) {
         this.distance = distance;
         this.duration = duration;
         this.end_location = end_location;
@@ -55,11 +55,11 @@ public class Leg {
         this.start_location = start_location;
     }
 
-    public List<Step> getSteps() {
+    public List<GoogleStep> getSteps() {
         return this.steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(List<GoogleStep> steps) {
         this.steps = steps;
     }
 

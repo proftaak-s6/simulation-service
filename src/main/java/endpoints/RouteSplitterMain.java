@@ -1,10 +1,10 @@
 package endpoints;
 
+import com.google.gson.Gson;
+
 import models.OriginDestination;
+import models.SplitRoute;
 import models.google.GoogleRoute;
-import models.google.Leg;
-import models.google.Route;
-import models.google.Step;
 import services.GoogleDirectionsApiService;
 import services.RouteSplitterService;
 
@@ -13,29 +13,16 @@ public class RouteSplitterMain {
         GoogleDirectionsApiService directionsService = new GoogleDirectionsApiService();
         RouteSplitterService routeSplitterService = new RouteSplitterService();
 
-        OriginDestination input = new OriginDestination("Enschotsestraat, Tilburg, The Netherlands", "Lambert de Wijsstraat, Tilburg, The Netherlands");
+        // Alternate route, over the A50
+        // OriginDestination input = new OriginDestination("McDonald's Heesch",
+        // "Carpoolplaats Ravenstein A50");
+
+        OriginDestination input = new OriginDestination("Enschotsestraat, Tilburg, The Netherlands",
+                "Lambert de Wijsstraat, Tilburg, The Netherlands");
         GoogleRoute result = directionsService.getDirections(input.getOrigin(), input.getDestination());
 
-        System.out.println("Logging the GoogleRoute that will be used for splitting. Input data: " + input);
-        System.out.println(" == GOOGLEROUTE ==");
-        System.out.println(result.toString());
-        System.out.println(" ================ ");
-        for (Route route : result.getRoutes()) {
-            System.out.println(" == ROUTE ==");
-            System.out.println(route.toString());
-            System.out.println(" =========== ");
-            for (Leg leg : route.getLegs()) {
-                System.out.println(" == LEG ==");
-                System.out.println(leg.toString());
-                System.out.println(" ========= ");
-                for (Step step : leg.getSteps()) {
-                    System.out.println(" == STEP ==");
-                    System.out.println(step.toString());
-                    System.out.println(" ========== ");
-                }
-            }
-        }
-
-        routeSplitterService.SplitStepsIntoLocations(result.getRoutes().get(0).getLegs().get(0).getSteps(), 5);
+        SplitRoute splitRoute = routeSplitterService
+                .SplitStepsIntoLocations(result.getRoutes().get(0).getLegs().get(0).getSteps(), 5);
+        System.out.println(new Gson().toJson(splitRoute));
     }
 }

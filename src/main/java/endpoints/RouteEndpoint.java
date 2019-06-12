@@ -9,9 +9,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import models.OriginDestination;
-import models.DatedLocation;
+import models.SplitRoute;
 import models.google.GoogleRoute;
-import models.google.Step;
+import models.google.GoogleStep;
 import services.GoogleDirectionsApiService;
 import services.RouteSplitterService;
 
@@ -41,9 +41,9 @@ public class RouteEndpoint {
                 && result.getRoutes().size() > 0
                 && result.getRoutes().get(0).getLegs().size() > 0
                 && result.getRoutes().get(0).getLegs().get(0).getSteps().size() > 0) {
-            List<Step> steps = result.getRoutes().get(0).getLegs().get(0).getSteps();
-            List<DatedLocation> entity = routeSplitterService.SplitStepsIntoLocations(steps, updateInterval);
-            return Response.ok(entity).build();
+            List<GoogleStep> steps = result.getRoutes().get(0).getLegs().get(0).getSteps();
+            SplitRoute splitRoute = routeSplitterService.SplitStepsIntoLocations(steps, updateInterval);
+            return Response.ok(splitRoute).build();
         } else {
             return Response.status(Status.SERVICE_UNAVAILABLE).entity(result).build();
         }
@@ -55,5 +55,4 @@ public class RouteEndpoint {
         GoogleRoute result = directionsService.getDirections(input.getOrigin(), input.getDestination());
         return Response.ok(result).build();
     }
-
 }

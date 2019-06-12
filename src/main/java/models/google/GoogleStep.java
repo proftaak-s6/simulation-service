@@ -1,17 +1,17 @@
 
 package models.google;
 
-public class Step {
+public class GoogleStep {
 
     private TextValue distance;
     private TextValue duration;
     private Location start_location;
     private Location end_location;
 
-    public Step() {
+    public GoogleStep() {
     }
 
-    public Step(TextValue distance, TextValue duration, Location start_location, Location end_location) {
+    public GoogleStep(TextValue distance, TextValue duration, Location start_location, Location end_location) {
         this.distance = distance;
         this.duration = duration;
         this.start_location = start_location;

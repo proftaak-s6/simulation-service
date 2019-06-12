@@ -25,8 +25,10 @@ public class GoogleGeocodingService {
 
     public String getStreetname(Location location) {
         GeocodedLocation geocodedLocation = client.target(API_URL)
-                .queryParam("latlng", location.getLat() + "," + location.getLng()).queryParam("key", API_KEY)
-                .request(MediaType.APPLICATION_JSON).get(GeocodedLocation.class);
+            .queryParam("latlng", location.getLat() + "," + location.getLng())
+            .queryParam("key", API_KEY)
+            .request(MediaType.APPLICATION_JSON)
+            .get(GeocodedLocation.class);
 
         for (Result result : geocodedLocation.getResults()) {
             for (AddressComponent addressComponent : result.getAddress_components()) {
@@ -43,7 +45,8 @@ public class GoogleGeocodingService {
     }
 
     public String getLocationUrl(Location location) {
-        target = client.target(API_URL).queryParam("latlng", location.getLat() + "," + location.getLng())
+        target = client.target(API_URL)
+                .queryParam("latlng", location.getLat() + "," + location.getLng())
                 .queryParam("key", API_KEY);
 
         return target.getUri().toString();
