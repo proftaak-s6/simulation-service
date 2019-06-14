@@ -1,6 +1,7 @@
 package endpoints;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -22,19 +23,15 @@ import services.RouteSplitterService;
 public class RouteEndpoint {
 
     @Inject
-    GoogleDirectionsApiService directionsService;
-    MessageProducer messageProducer;
+    private GoogleDirectionsApiService directionsService;
 
     @Inject
-    RouteSplitterService routeSplitterService;
+    private MessageProducer messageProducer;
+
+    @Inject
+    private RouteSplitterService routeSplitterService;
 
     private static int updateInterval = 5;
-
-    @GET
-    public Response GetRouteUri(OriginDestination input) {
-        String route = directionsService.getDirectionsUrl(input.getOrigin(), input.getDestination());
-        return Response.ok(route).build();
-    }
 
     @POST
     public Response CreateRoute(OriginDestination input) {
