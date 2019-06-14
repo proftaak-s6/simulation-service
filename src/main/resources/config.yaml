@@ -2,3 +2,16 @@ config:
   google:
     directionsApi:
       key: '${GOOGLE_API_KEY}'
+  amqp:
+    rabbitmq:
+      hosts:
+        - name: RabbitMQ
+          url: 192.168.178.24
+          password: admin
+          username: admin
+
+          port: 15672 #ignored
+          automaticRecoveryEnabled: true #ignored
+          exchanges:
+           - name: trackingExchange
+             type: direct

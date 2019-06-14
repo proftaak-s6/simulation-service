@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import messaging.MessageProducer;
 import models.OriginDestination;
 import models.SplitRoute;
 import models.google.GoogleRoute;
@@ -22,6 +23,7 @@ public class RouteEndpoint {
 
     @Inject
     GoogleDirectionsApiService directionsService;
+    MessageProducer messageProducer;
 
     @Inject
     RouteSplitterService routeSplitterService;
@@ -43,6 +45,9 @@ public class RouteEndpoint {
                 && result.getRoutes().get(0).getLegs().get(0).getSteps().size() > 0) {
             List<GoogleStep> steps = result.getRoutes().get(0).getLegs().get(0).getSteps();
             SplitRoute splitRoute = routeSplitterService.SplitStepsIntoLocations(steps, updateInterval);
+            
+            messageProducer.sendJSONMessage(splitRoute.toString());
+
             return Response.ok(splitRoute).build();
         } else {
             return Response.status(Status.SERVICE_UNAVAILABLE).entity(result).build();

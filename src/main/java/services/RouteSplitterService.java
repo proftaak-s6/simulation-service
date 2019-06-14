@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
-
 import models.DatedLocation;
 import models.NamedLocation;
 import models.SplitRoute;
@@ -16,6 +15,7 @@ import models.google.GoogleStep;
 
 @Dependent
 public class RouteSplitterService {
+
     public RouteSplitterService() {
     }
 

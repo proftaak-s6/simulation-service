@@ -29,10 +29,11 @@ public class GoogleDirectionsApiService {
     private void test() {
         Logger LOG = Logger.getLogger(getClass().getName());
         LOG.info("API_KEY: " + API_KEY);
+        client = ClientBuilder.newClient();
     }
 
     public GoogleDirectionsApiService() {
-        client = ClientBuilder.newClient();
+        
     }
 
     public GoogleRoute getDirections(String origin, String destination) {

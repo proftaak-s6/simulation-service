@@ -19,6 +19,7 @@
     <kumuluzee.version>3.4.0</kumuluzee.version>
     <kumuluzee-rest.version>1.2.3</kumuluzee-rest.version>
     <kumuluzee-cors.version>1.0.5</kumuluzee-cors.version>
+    <kumuluzee.rabbitmq.version>1.0.0-SNAPSHOT</kumuluzee.rabbitmq.version>
   </properties>
 
   <dependencyManagement>
@@ -62,6 +63,12 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.16</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.kumuluz.ee.amqp</groupId>
+      <artifactId>kumuluzee-amqp-rabbitmq</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -82,5 +89,32 @@
     </plugins>
   </build>
 
+  <repositories>
+    <repository>
+      <id>sonatype-snapshots</id>
+      <name>Sonatype Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>sonatype-snapshots</id>
+      <name>Sonatype Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
