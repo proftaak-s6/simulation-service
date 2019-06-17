@@ -6,8 +6,10 @@ services:
     environment:
       GOOGLE_API_KEY: /run/secrets/google-api-key
     secrets:
-      google-api-key:
-        external: true 
+      - google-api-key
     ports:
       - 8300:8080
     restart: unless-stopped
+secrets:
+  google-api-key:
+    external: true 
