@@ -8,3 +8,6 @@ services:
     secrets:
       google-api-key:
         external: true
+    ports:
+      - 8300:8080
+    restart: unless-stopped
