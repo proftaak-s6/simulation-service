@@ -1,10 +1,13 @@
-version: '3'
+version: '3.1'
 
 services:
   simulation:
     image: yoksar/simulation-service
     environment:
       GOOGLE_API_KEY: /run/secrets/google-api-key
+    secrets:
+      google-api-key:
+        external: true 
     ports:
       - 8300:8080
     restart: unless-stopped
