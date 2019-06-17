@@ -8,11 +8,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.google.gson.Gson;
+
 import messaging.MessageProducer;
 import models.OriginDestination;
 import models.SplitRoute;
 import models.google.GoogleRoute;
 import models.google.GoogleStep;
+import models.rabbitmq.RouteMessage;
 import services.GoogleDirectionsApiService;
 import services.RouteSplitterService;
 
@@ -32,16 +35,25 @@ public class RouteEndpoint {
 
     private static int updateInterval = 5;
 
+    private Gson gson = new Gson();
+
     @POST
-    public Response CreateRoute(OriginDestination input) {
+    @Path("/{trackerId}")
+    public Response CreateRoute(@PathParam("trackerId") int trackerId, OriginDestination input) {
         GoogleRoute result = directionsService.getDirections(input.getOrigin(), input.getDestination());
+
         if (result.getStatus().equals("OK") && result.getRoutes().size() > 0
                 && result.getRoutes().get(0).getLegs().size() > 0
                 && result.getRoutes().get(0).getLegs().get(0).getSteps().size() > 0) {
-            List<GoogleStep> steps = result.getRoutes().get(0).getLegs().get(0).getSteps();
-            SplitRoute splitRoute = routeSplitterService.SplitStepsIntoLocations(steps, updateInterval);
 
-            messageProducer.sendJSONMessage(splitRoute.toString());
+            List<GoogleStep> steps = result.getRoutes().get(0).getLegs().get(0).getSteps();
+
+            SplitRoute splitRoute = routeSplitterService.SplitStepsIntoLocations(steps, updateInterval);
+            splitRoute.setTrackerId(trackerId);
+
+            RouteMessage routeMessage = splitRoute.toRouteMessage();
+
+            messageProducer.sendJSONMessage(gson.toJson(routeMessage));
 
             return Response.ok(splitRoute).build();
         } else {
