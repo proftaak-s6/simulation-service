@@ -7,6 +7,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.Gson;
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 
 import models.geocode.AddressComponent;
@@ -17,18 +18,23 @@ import models.google.Location;
 @Dependent
 public class GoogleGeocodingService {
     private String API_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
-    private String API_KEY = ConfigurationUtil.getInstance().get("config.google.directionsApi.key")
-            .orElseThrow(() -> new RuntimeException("Could not find 'config.google.directionsApi.key'"));
+    private String API_KEY = ConfigurationUtil.getInstance()
+        .get("config.google.directionsApi.key")
+        .orElseThrow(() -> new RuntimeException("Could not find 'config.google.directionsApi.key'"));
 
+    private Gson gson = new Gson();
     private Client client = ClientBuilder.newClient();
     private WebTarget target;
 
     public String getStreetname(Location location) {
-        GeocodedLocation geocodedLocation = client.target(API_URL)
+        String geocodedLocationString = client
+            .target(API_URL)
             .queryParam("latlng", location.getLat() + "," + location.getLng())
             .queryParam("key", API_KEY)
             .request(MediaType.APPLICATION_JSON)
-            .get(GeocodedLocation.class);
+            .get(String.class);
+
+        GeocodedLocation geocodedLocation = gson.fromJson(geocodedLocationString, GeocodedLocation.class);
 
         for (Result result : geocodedLocation.getResults()) {
             for (AddressComponent addressComponent : result.getAddress_components()) {
@@ -41,13 +47,14 @@ public class GoogleGeocodingService {
         }
 
         // TODO: Throw an error?
-        return null;
+        return "Augoirkestraat";
     }
 
     public String getLocationUrl(Location location) {
-        target = client.target(API_URL)
-                .queryParam("latlng", location.getLat() + "," + location.getLng())
-                .queryParam("key", API_KEY);
+        target = client
+            .target(API_URL)
+            .queryParam("latlng", location.getLat() + "," + location.getLng())
+            .queryParam("key", API_KEY);
 
         return target.getUri().toString();
     }

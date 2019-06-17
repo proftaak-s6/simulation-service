@@ -1,7 +1,6 @@
 package endpoints;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -36,13 +35,12 @@ public class RouteEndpoint {
     @POST
     public Response CreateRoute(OriginDestination input) {
         GoogleRoute result = directionsService.getDirections(input.getOrigin(), input.getDestination());
-        if (result.getStatus().equals("OK") 
-                && result.getRoutes().size() > 0
+        if (result.getStatus().equals("OK") && result.getRoutes().size() > 0
                 && result.getRoutes().get(0).getLegs().size() > 0
                 && result.getRoutes().get(0).getLegs().get(0).getSteps().size() > 0) {
             List<GoogleStep> steps = result.getRoutes().get(0).getLegs().get(0).getSteps();
             SplitRoute splitRoute = routeSplitterService.SplitStepsIntoLocations(steps, updateInterval);
-            
+
             messageProducer.sendJSONMessage(splitRoute.toString());
 
             return Response.ok(splitRoute).build();

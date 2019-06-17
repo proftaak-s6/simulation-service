@@ -9,6 +9,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.Gson;
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 
 import models.google.GoogleRoute;
@@ -21,32 +22,27 @@ public class GoogleDirectionsApiService {
         .get("config.google.directionsApi.key")
         .orElseThrow(() -> new RuntimeException("Could not find 'config.google.directionsApi.key'"));
 
-    private Client client;
+    private Gson gson = new Gson();
+    private Client client = ClientBuilder.newClient();
     private WebTarget target;
 
-
-    @PostConstruct
-    private void test() {
-        Logger LOG = Logger.getLogger(getClass().getName());
-        LOG.info("API_KEY: " + API_KEY);
-        client = ClientBuilder.newClient();
-    }
-
-    public GoogleDirectionsApiService() {
-        
-    }
-
     public GoogleRoute getDirections(String origin, String destination) {
-        return client.target(API_URL)
+        String googleRouteString = client
+            .target(API_URL)
             .queryParam("origin", origin)
             .queryParam("destination", destination)
             .queryParam("key", API_KEY)
             .request(MediaType.APPLICATION_JSON)
-            .get(GoogleRoute.class);
+            .get(String.class);
+
+        GoogleRoute googleRoute = gson.fromJson(googleRouteString, GoogleRoute.class);
+
+        return googleRoute;
     }
 
     public String getDirectionsUrl(String origin, String destination) {
-        target = client.target(API_URL)
+        target = client
+            .target(API_URL)
             .queryParam("origin", origin)
             .queryParam("destination", destination)
             .queryParam("key", API_KEY);
