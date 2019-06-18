@@ -4,7 +4,8 @@ services:
   simulation:
     image: yoksar/simulation-service
     environment:
-      GOOGLE_API_KEY: /run/secrets/google-api-key
+      GOOGLE_SECRET_LOCATION: /run/secrets/google-api-key
+      LOAD_FROM_FILE: true
     secrets:
       - google-api-key
     ports:

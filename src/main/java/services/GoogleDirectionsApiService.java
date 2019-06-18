@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -17,10 +18,10 @@ import models.google.GoogleRoute;
 
 @Dependent
 public class GoogleDirectionsApiService {
+    private GoogleApiKeyService keyService = new GoogleApiKeyService();
 
     private String API_URL = "https://maps.googleapis.com/maps/api/directions/json?";
-    private String API_KEY = ConfigurationUtil.getInstance().get("config.google.directionsApi.key")
-            .orElseThrow(() -> new RuntimeException("Could not find 'config.google.directionsApi.key'"));
+    private String API_KEY = keyService.getKey();
 
     private Gson gson = new Gson();
     private Client client = ClientBuilder.newClient();

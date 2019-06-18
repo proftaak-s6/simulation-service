@@ -17,10 +17,9 @@ import models.google.Location;
 
 @Dependent
 public class GoogleGeocodingService {
+    private GoogleApiKeyService keyService = new GoogleApiKeyService();
     private String API_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
-    private String API_KEY = ConfigurationUtil.getInstance()
-        .get("config.google.directionsApi.key")
-        .orElseThrow(() -> new RuntimeException("Could not find 'config.google.directionsApi.key'"));
+    private String API_KEY = keyService.getKey();
 
     private Gson gson = new Gson();
     private Client client = ClientBuilder.newClient();
