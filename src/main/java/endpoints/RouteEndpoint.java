@@ -67,4 +67,10 @@ public class RouteEndpoint {
         GoogleRoute result = directionsService.getDirections(input.getOrigin(), input.getDestination());
         return Response.ok(result).build();
     }
+
+    @GET
+    @Path("test")
+    public Response getTest() {
+        return Response.ok(directionsService.getDirections("Dongen", "Tilburg")).build();
+    }
 }
