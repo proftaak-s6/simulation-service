@@ -1,7 +1,10 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +24,16 @@ public class SplitRoute {
             String name = step.getStart().getName();
             Date date = step.getLocations().get(0).getDate();
 
-            String dateString = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+            // Add 2 hours
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.HOUR_OF_DAY, 2);
+            date = calendar.getTime();
+
+            // Format as string
+            String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+            DateFormat dateFormat = new SimpleDateFormat(pattern);
+            String dateString = dateFormat.format(date);
 
             Location location = step.getLocations().get(0);
 
