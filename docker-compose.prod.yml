@@ -5,12 +5,13 @@ services:
     image: yoksar/simulation-service
     environment:
       GOOGLE_SECRET_LOCATION: /run/secrets/google-api-key
-      LOAD_FROM_FILE: true
+      LOAD_FROM_FILE: 'true'
     secrets:
       - google-api-key
     ports:
       - 8300:8080
     restart: unless-stopped
+
 secrets:
   google-api-key:
     external: true 
